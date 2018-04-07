@@ -1,0 +1,4 @@
+-cp src
+-main HelloWorld
+
+-python bin/HelloWorld.py
