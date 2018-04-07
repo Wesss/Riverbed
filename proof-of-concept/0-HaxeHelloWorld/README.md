@@ -1,4 +1,4 @@
 Running:
 ```
-haxe -main HelloWorld --interp
+haxe HelloWorld.hxml
 ```
