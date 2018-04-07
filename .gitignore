@@ -1,0 +1,15 @@
+##
+# Rename this to .gitignore and move into git repository
+##
+
+# General
+bin/
+tmp/
+dist/
+*.tmp
+
+# MacOS
+.DS_Store
+
+# Local to Project
+sandbox/
