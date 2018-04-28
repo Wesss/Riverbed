@@ -1,11 +1,4 @@
 # Haxe Riverbed
-Haxe Riverbed is a Flow Based Programming Framework for haxe
+Haxe Riverbed is a Flow Based Programming inspired Framework for Haxe
 
-## TODO  notes
-research more on
-
-https://noflojs.o-start-flowing-with-flow-based-programming/
-
-http://www.jpaulmorrison.com/fbp/
-
-https://colab.coop/blog/how-to-start-flowing-with-flow-based-programming/
+TODO inspiration, getting started, contributing
