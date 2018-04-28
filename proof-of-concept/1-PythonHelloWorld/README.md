@@ -1,6 +1,6 @@
 Compiling:
 ```
-haxe HelloWorld.hxml
+haxe HelloWorldPy.hxml
 ```
 
 Running:
@@ -8,4 +8,4 @@ Running:
 python bin/HelloWorld.py
 ```
 
-TODO investigate .hxproj files for compilation
+<!-- TODO wipe old build before rebuilding. Perhaps investigate docker https://hub.docker.com/_/haxe/ -->
