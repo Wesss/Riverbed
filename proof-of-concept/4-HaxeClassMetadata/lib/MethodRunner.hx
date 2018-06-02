@@ -1,10 +1,13 @@
-// @:keep // <-- Avoid dead code elimination
+import haxe.Constraints;
+import domain.*;
+
 class MethodRunner {
     public function new()  {}
 
     public function runMethod(objectWithMetadata:Dynamic) {
-        var method = objectWithMetadata.functionMetadata();
+        var metadata:Map<Domain, Function> = objectWithMetadata.functionMetadata();
 
-        method();
+        var func = metadata.get(VoidDomain.instance);
+        func(VoidDomain.instance);
     }
 }
