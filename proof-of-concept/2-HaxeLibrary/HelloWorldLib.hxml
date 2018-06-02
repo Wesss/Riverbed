@@ -1,5 +1,5 @@
 -cp src
 -cp lib
 
--main HelloWorld
+-main Main
 --interp
