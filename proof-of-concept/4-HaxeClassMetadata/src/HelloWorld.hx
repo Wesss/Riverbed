@@ -1,13 +1,20 @@
 import haxe.Constraints;
 import domain.*;
 
+typedef StreamMethod = {
+    parameter: Class<Dynamic>,
+    method: Function
+}
 class HelloWorld {
     public function new() {}
 
-    public function functionMetadata():Map<Domain, Function> {
-        // var map:Map<Class<Dynamic>, Function> = new Map();
-        // map.set(VoidDomain, arbitraryMethod);
-        return [VoidDomain.instance => arbitraryMethod];
+    public function getFunctions():Array<StreamMethod> {
+        return [
+            {
+                parameter: VoidDomain,
+                method: arbitraryMethod
+            }
+        ];
     }
 
     public function arbitraryMethod(_:VoidDomain):VoidDomain {

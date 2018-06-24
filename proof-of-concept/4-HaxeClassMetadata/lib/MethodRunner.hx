@@ -1,13 +1,17 @@
 import haxe.Constraints;
 import domain.*;
+import HelloWorld;
 
 class MethodRunner {
     public function new()  {}
 
     public function runMethod(objectWithMetadata:Dynamic) {
-        var metadata:Map<Domain, Function> = objectWithMetadata.functionMetadata();
+        var metadata:Array<StreamMethod> = objectWithMetadata.getFunctions();
 
-        var func = metadata.get(VoidDomain.instance);
-        func(VoidDomain.instance);
+        var streamMethod = metadata[0];
+        trace(Std.is(VoidDomain.instance, streamMethod.parameter));
+        trace(Reflect.isFunction(streamMethod.method));
+
+        streamMethod.method(VoidDomain.instance);
     }
 }
