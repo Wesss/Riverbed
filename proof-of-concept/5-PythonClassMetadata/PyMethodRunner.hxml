@@ -1,0 +1,5 @@
+-cp lib
+# add the classes that you want to include
+lib.MethodRunner
+
+-python bin/MethodRunner.py

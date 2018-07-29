@@ -1,7 +1,3 @@
-##
-# Rename this to .gitignore and move into git repository
-##
-
 # General
 bin/
 tmp/
