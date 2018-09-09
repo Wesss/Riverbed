@@ -28,7 +28,8 @@ yarn global add haxeshim switchx lix.pm
 # Create a ".haxerc" in the current directory, informing haxeshim that
 # this project should use a specific version of Haxe and specific
 # `haxe_libraries` dependencies
-switchx scope create
+lix scope create
+
 # Use the latest stable version of Haxe in this project.
-switchx install stable
+lix use haxe stable
 ```
