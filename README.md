@@ -7,29 +7,23 @@ TODO inspiration, getting started, contributing
 TODO actually write out setup directions
 
 1. install nodejs (https://nodejs.org/en/)
-  - select option to add to path?
 2. install yarn (https://yarnpkg.com/en/docs/install#windows-stable)
-  - add the following to .bash_profile or .bashrc
-  ```
-  # yarn binary
-  PATH=$PATH:/c/Program\ Files\ \(x86\)/Yarn/bin
-  # dependencies installed via yarn
-  PATH=$PATH:/c/Users/wesdev/AppData/Local/Yarn/bin
-  ```
-
-3. install haxeshim, switchx, and lix?
+3. Add yarn executable and yarn-installed executables to your path.
+  - Add the following to your .bash_profile or .bashrc
 ```
-# Install all 3 tools and make their commands available.
+# yarn binary
+PATH=$PATH:/c/Program\ Files\ \(x86\)/Yarn/bin
+# dependencies installed via yarn
+PATH=$PATH:/c/Users/wesdev/AppData/Local/Yarn/bin
+```
+
+3. install haxeshim, switchx, and lix
+```
 yarn global add haxeshim switchx lix.pm
 ```
 
-4. setup dependency manager?
+4. install dependencies
 ```
-# Create a ".haxerc" in the current directory, informing haxeshim that
-# this project should use a specific version of Haxe and specific
-# `haxe_libraries` dependencies
-lix scope create
-
-# Use the latest stable version of Haxe in this project.
-lix use haxe stable
+mkdir haxe_libraries
+lix download
 ```
