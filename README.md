@@ -1,10 +1,14 @@
 # Haxe Riverbed
 Haxe Riverbed is a Haxe Framework inspried by Flow Based Programming
 
-TODO inspiration, getting started, contributing
+TODO inspiration
 
-## Setup
-TODO actually write out setup directions
+# Contributing
+
+## First Time Setup
+Lix is used as our dependency manager. It uses switchx and haxeshim as dependencies.
+All three must be downloaded through yarn, which is a nodejs package manager.
+That in turn means we also need nodejs.
 
 1. install nodejs (https://nodejs.org/en/)
 2. install yarn (https://yarnpkg.com/en/docs/install#windows-stable)
@@ -14,7 +18,7 @@ TODO actually write out setup directions
 # yarn binary
 PATH=$PATH:/c/Program\ Files\ \(x86\)/Yarn/bin
 # dependencies installed via yarn
-PATH=$PATH:/c/Users/wesdev/AppData/Local/Yarn/bin
+PATH=$PATH:/c/Users/${UserName}/AppData/Local/Yarn/bin
 ```
 
 3. install haxeshim, switchx, and lix
@@ -26,4 +30,17 @@ yarn global add haxeshim switchx lix.pm
 ```
 mkdir haxe_libraries
 lix download
+```
+
+## Switching Context
+
+1. switch to current branch's dependencies
+```
+lix download
+```
+
+## Unit Testing
+`munit` is our unit testing framework
+```
+alias munit='lix run-haxelib /c/Users/wesdev/AppData/Roaming/haxe/haxe_libraries/munit/2.3.2/haxelib'
 ```
