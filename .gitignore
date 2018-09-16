@@ -2,6 +2,8 @@
 bin/
 tmp/
 dist/
+build/
+report/
 *.tmp
 
 # MacOS
@@ -10,6 +12,11 @@ dist/
 # Python
 __pycache__
 *.pyc
+
+# MUnit
+test/ExampleTestz.hx
+test/TestMain.hx
+test/TestSuite.hx
 
 # Local to Project
 sandbox/

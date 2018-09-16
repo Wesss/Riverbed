@@ -40,7 +40,23 @@ lix download
 ```
 
 ## Unit Testing
-`munit` is our unit testing framework
+`munit` is our unit testing framework. At the time of writing, it is not compatible with lix.
+Download it and all dependencies via
 ```
-alias munit='lix run-haxelib /c/Users/wesdev/AppData/Roaming/haxe/haxe_libraries/munit/2.3.2/haxelib'
+haxelib install munit
+haxelib install hamcrest
+haxelib install hxcpp
+haxelib install hxjava
+haxelib install hxcs
+haxelib install hxnodejs
+```
+
+Then optionally alias munit
+```
+alias munit='haxelib run munit'
+```
+
+Run the full test suite via
+```
+munit test
 ```
