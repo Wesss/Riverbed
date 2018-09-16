@@ -4,9 +4,6 @@ tmp/
 dist/
 *.tmp
 
-# Haxe dependencies
-haxe_libraries/
-
 # MacOS
 .DS_Store
 
