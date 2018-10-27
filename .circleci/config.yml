@@ -1,8 +1,15 @@
 version: 2
 jobs:
-  build:
-    docker:
-      - image: haxe:3.4.4
-    steps:
-      - checkout
-      - run: echo "hello world"
+    build:
+        docker:
+            - image: haxe:3.4.4
+        steps:
+            - checkout
+            - run:
+                name: Setup Testing
+                command: |
+                    haxelib install munit 2.3.2
+            - run:
+                name: Testing
+                command: |
+                    haxelib run munit test
