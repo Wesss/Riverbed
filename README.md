@@ -6,49 +6,15 @@ TODO inspiration
 # Contributing
 
 ## First Time Setup
-Lix is used as our dependency manager. It uses switchx and haxeshim as dependencies.
-All three must be downloaded through yarn, which is a nodejs package manager.
-That in turn means we also need nodejs.
-
-1. install nodejs (https://nodejs.org/en/)
-2. install yarn (https://yarnpkg.com/en/docs/install#windows-stable)
-3. Add yarn executable and yarn-installed executables to your path.
-  - Add the following to your .bash_profile or .bashrc
-```
-# yarn binary
-PATH=$PATH:/c/Program\ Files\ \(x86\)/Yarn/bin
-# dependencies installed via yarn
-PATH=$PATH:/c/Users/${UserName}/AppData/Local/Yarn/bin
-```
-
-3. install haxeshim, switchx, and lix
-```
-yarn global add haxeshim switchx lix.pm
-```
-
-4. install dependencies
-```
-mkdir haxe_libraries
-lix download
-```
-
-## Switching Context
-
-1. switch to current branch's dependencies
-```
-lix download
-```
+TODO
+- download/install haxe/haxelib, set to version 3.4.4
 
 ## Unit Testing
-`munit` is our unit testing framework. At the time of writing, it is not compatible with lix.
-Download it and all dependencies via
+`munit` is our unit testing framework.
+Download it and all dependencies via.
 ```
-haxelib install munit
-haxelib install hamcrest
-haxelib install hxcpp
-haxelib install hxjava
-haxelib install hxcs
-haxelib install hxnodejs
+haxelib install munit 2.3.2
+haxelib install hamcrest 2.0.1
 ```
 
 Then optionally alias munit
