@@ -9,6 +9,7 @@ jobs:
                 name: Setup Testing
                 command: |
                     haxelib install munit 2.3.2
+                    haxelib install hamcrest 2.0.1
             - run:
                 name: Testing
                 command: |
