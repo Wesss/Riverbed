@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: haxe:3.4.7
+      - image: haxe:3.4.4
     steps:
       - checkout
       - run: echo "hello world"
