@@ -14,7 +14,7 @@ __pycache__
 *.pyc
 
 # MUnit
-test/ExampleTestz.hx
+test/ExampleTest.hx
 test/TestMain.hx
 test/TestSuite.hx
 

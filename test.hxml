@@ -1,12 +1,12 @@
-## Flash 9+
--main TestMain
--lib munit
--lib hamcrest
--cp src
-
--cp test
--swf-version 11
--swf build/as3_test.swf
+# ## Flash 9+
+# -main TestMain
+# -lib munit
+# -lib hamcrest
+# -cp src
+#
+# -cp test
+# -swf-version 11
+# -swf build/as3_test.swf
 
 ## JavaScript
 --next
@@ -28,36 +28,36 @@
 -cp test
 -neko build/neko_test.n
 
-## CPP
---next
--main TestMain
--lib munit
--lib hamcrest
--cp src
+# ## CPP
+# --next
+# -main TestMain
+# -lib munit
+# -lib hamcrest
+# -cp src
+#
+# -cp test
+# #-D HXCPP_M64
+# -cpp build/cpp_test
 
--cp test
-#-D HXCPP_M64
--cpp build/cpp_test
+# ## Java
+# --next
+# -main TestMain
+# -lib munit
+# -lib hamcrest
+# -cp src
+#
+# -cp test
+# -java build/java_test
 
-## Java
---next
--main TestMain
--lib munit
--lib hamcrest
--cp src
-
--cp test
--java build/java_test
-
-## CSharp
---next
--main TestMain
--lib munit
--lib hamcrest
--cp src
-
--cp test
--cs build/cs_test
+# ## CSharp
+# --next
+# -main TestMain
+# -lib munit
+# -lib hamcrest
+# -cp src
+#
+# -cp test
+# -cs build/cs_test
 
 ## Python
 --next
@@ -70,12 +70,12 @@
 -python build/python_test.py
 
 ## JavaScript NodeJS
---next
--main TestMain
--lib munit
--lib hamcrest
--lib hxnodejs
--cp src
-
--cp test
--js build/js_test.js
+# --next
+# -main TestMain
+# -lib munit
+# -lib hamcrest
+# -lib hxnodejs
+# -cp src
+#
+# -cp test
+# -js build/js_test.js
