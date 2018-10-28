@@ -13,7 +13,4 @@ jobs:
             - run:
                 name: Testing
                 command: |
-                    haxelib run munit gen
-                    haxelib run munit run -neko
-                    haxelib run munit run -js
-                    haxelib run munit run -python
+                    haxelib run munit test
