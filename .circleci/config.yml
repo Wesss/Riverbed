@@ -15,11 +15,13 @@ jobs:
                 command: |
                     haxelib run munit gen test/
                     haxe test.hxml
+            - run:
+                name: Prepare Workspace
+                command: |
+                    mkdir workspace/
+                    cp -r build/ workspace/build/
             - persist_to_workspace:
-                # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
-                # taken to be the root directory of the workspace.
-                root: /
-                # Must be relative path from root
+                root: workspace
                 paths:
                     - build
     neko_test:
@@ -27,15 +29,18 @@ jobs:
             - image: haxe:3.4.4
         steps:
             - attach_workspace:
-                # Must be absolute path or relative path from working_directory
-                at: /workspace
+                at: workspace
             - run:
-                name: Run Neko Test
+                name: Extract Workspace
                 command: |
-                    neko /workspace/build/neko_test.n
+                    cp -r workspace/build/ build/
+            - run:
+                name: Run Neko Tests
+                command: |
+                    neko build/neko_test.n
 workflows:
     version: 2
-    build_and_echo:
+    test:
         jobs:
             - compile_tests
             - neko_test:
