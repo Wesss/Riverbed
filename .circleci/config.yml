@@ -13,4 +13,6 @@ jobs:
             - run:
                 name: Testing
                 command: |
-                    haxelib run munit test
+                    haxelib run munit gen test/
+                    haxe test.hxml
+                    neko build/neko_test.n
