@@ -1,6 +1,6 @@
 version: 2
 jobs:
-    build:
+    compile_tests:
         docker:
             - image: haxe:3.4.4
         steps:
@@ -15,24 +15,29 @@ jobs:
                 command: |
                     haxelib run munit gen test/
                     haxe test.hxml
-                    neko build/neko_test.n
-            - run:
-                name: Run Neko Test
-                command: |
-                    neko build/neko_test.n
-    echotest:
+            - persist_to_workspace:
+                # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+                # taken to be the root directory of the workspace.
+                root: /
+                # Must be relative path from root
+                paths:
+                    - build
+    neko_test:
         docker:
             - image: haxe:3.4.4
         steps:
+            - attach_workspace:
+                # Must be absolute path or relative path from working_directory
+                at: /workspace
             - run:
-                name: echo test
+                name: Run Neko Test
                 command: |
-                    echo test
+                    neko /workspace/build/neko_test.n
 workflows:
     version: 2
     build_and_echo:
         jobs:
-            - build
-            - echotest:
+            - compile_tests
+            - neko_test:
                 requires:
-                    - build
+                    - compile_tests
