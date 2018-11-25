@@ -38,11 +38,30 @@ jobs:
                 name: Run Neko Tests
                 command: |
                     neko build/neko_test.n
+    python_test:
+        docker:
+            - image: python:3.6.7
+        steps:
+            - attach_workspace:
+                at: workspace
+            - run:
+                name: Extract Workspace
+                command: |
+                    cp -r workspace/build/ build/
+            - run:
+                name: Run Neko Tests
+                command: |
+                    python build/python_test.py
+# TODO figure out how to make failing tests return exit code 1 (or switch unit test frameworks)
+# TODO refactor out similar parts of this yml with yaml anchors/aliases (https://circleci.com/blog/circleci-hacks-reuse-yaml-in-your-circleci-config-with-yaml/)
 workflows:
     version: 2
     test:
         jobs:
             - compile_tests
             - neko_test:
+                requires:
+                    - compile_tests
+            - python_test:
                 requires:
                     - compile_tests
