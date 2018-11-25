@@ -14,4 +14,3 @@ jobs:
                 name: Testing
                 command: |
                     haxelib run munit test
-# TODO debug test running command, perhaps change to new image via workspace saving and run on python image?
