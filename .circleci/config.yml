@@ -33,4 +33,6 @@ workflows:
     build_and_echo:
         jobs:
             - build
-            - echotest
+            - echotest:
+                requires:
+                    - build
