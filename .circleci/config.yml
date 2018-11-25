@@ -16,3 +16,4 @@ jobs:
                     haxelib run munit gen test/
                     haxe test.hxml
                     neko build/neko_test.n
+                    python build/python_test.py
