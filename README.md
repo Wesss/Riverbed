@@ -1,5 +1,5 @@
 # Haxe Riverbed
-Haxe Riverbed is a Haxe Framework inspried by Flow Based Programming
+Haxe Riverbed is a Haxe Framework inspired by Flow Based Programming
 
 TODO inspiration
 
