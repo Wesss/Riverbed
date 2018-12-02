@@ -6,15 +6,8 @@ jobs:
         steps:
             - checkout
             - run:
-                name: Install Test Dependencies
-                command: |
-                    haxelib install munit 2.3.2
-                    haxelib install hamcrest 2.0.1
-            - run:
                 name: Compile Tests
-                command: |
-                    haxelib run munit gen test/
-                    haxe test.hxml
+                command: haxe compile-tests.hxml
             - run:
                 name: Prepare Workspace
                 command: |
@@ -37,21 +30,7 @@ jobs:
             - run:
                 name: Run Neko Tests
                 command: |
-                    neko build/neko_test.n
-    python_test:
-        docker:
-            - image: python:3.6.7
-        steps:
-            - attach_workspace:
-                at: workspace
-            - run:
-                name: Extract Workspace
-                command: |
-                    cp -r workspace/build/ build/
-            - run:
-                name: Run Neko Tests
-                command: |
-                    python build/python_test.py
+                    neko build/test/neko-test.n
 # TODO figure out how to make failing tests return exit code 1 (or switch unit test frameworks)
 # TODO refactor out similar parts of this yml with yaml anchors/aliases (https://circleci.com/blog/circleci-hacks-reuse-yaml-in-your-circleci-config-with-yaml/)
 workflows:
@@ -62,6 +41,6 @@ workflows:
             - neko_test:
                 requires:
                     - compile_tests
-            - python_test:
-                requires:
-                    - compile_tests
+            # - python_test:
+            #     requires:
+            #         - compile_tests
