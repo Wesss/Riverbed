@@ -3,3 +3,4 @@
 -main Runner
 
 -neko build/test/neko-test.n
+-cmd echo "neko tests compiled"
