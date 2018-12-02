@@ -1,26 +1,19 @@
 package unitTest;
 
-import massive.munit.Assert;
 import unitTest.UnitTestStub;
 
-class UnitTestStubTest {
+class UnitTestStubTest extends haxe.unit.TestCase {
 	var unitTestStub:UnitTestStub;
 
-	public function new() {
-	}
-
-	@Before
-	public function setup() {
+	override public function setup() {
 		this.unitTestStub = new UnitTestStub();
 	}
 
-	@Test
 	public function testAssertTrue() {
-		Assert.isTrue(true);
+		assertTrue(true);
 	}
 
-	@Test
 	public function testSrcCode() {
-		Assert.isTrue(this.unitTestStub.getTrue());
+		assertTrue(this.unitTestStub.getTrue());
 	}
 }

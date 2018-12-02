@@ -1,0 +1,5 @@
+-cp src
+-cp test
+-main Runner
+
+-neko build/test/test.n

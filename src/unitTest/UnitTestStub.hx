@@ -4,6 +4,6 @@ class UnitTestStub {
     public function new()  {}
 
     public function getTrue() {
-        return false;
+        return true;
     }
 }
