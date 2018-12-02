@@ -1,6 +1,12 @@
 -cp src
 -cp test
 -main Runner
+--each
 
 -neko build/test/neko-test.n
 -cmd echo "neko tests compiled"
+--next
+
+-python build/test/python-test.py
+-cmd echo "python tests compiled"
+--next

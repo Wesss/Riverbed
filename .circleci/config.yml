@@ -1,5 +1,13 @@
 version: 2
 jobs:
+    interpret_test:
+        docker:
+            - image: haxe:3.4.4
+        steps:
+            - checkout
+            - run:
+                name: Compile Tests
+                command: haxe interpret-tests.hxml
     compile_tests:
         docker:
             - image: haxe:3.4.4
@@ -31,16 +39,32 @@ jobs:
                 name: Run Neko Tests
                 command: |
                     neko build/test/neko-test.n
-# TODO figure out how to make failing tests return exit code 1 (or switch unit test frameworks)
+    python_test:
+        docker:
+            - image: python:3.6.7
+        steps:
+            - attach_workspace:
+                at: workspace
+            - run:
+                name: Extract Workspace
+                command: |
+                    cp -r workspace/build/ build/
+            - run:
+                name: Run Neko Tests
+                command: |
+                    python build/test/python-test.py
 # TODO refactor out similar parts of this yml with yaml anchors/aliases (https://circleci.com/blog/circleci-hacks-reuse-yaml-in-your-circleci-config-with-yaml/)
 workflows:
     version: 2
     test:
         jobs:
-            - compile_tests
+            - interpret_test
+            - compile_tests:
+                requires:
+                    - interpret_test
             - neko_test:
                 requires:
                     - compile_tests
-            # - python_test:
-            #     requires:
-            #         - compile_tests
+            - python_test:
+                requires:
+                    - compile_tests

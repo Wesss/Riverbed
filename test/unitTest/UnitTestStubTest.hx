@@ -11,7 +11,7 @@ class UnitTestStubTest extends haxe.unit.TestCase {
 
 	public function testAssertTrue() {
 		assertTrue(true);
-	
+	}
 
 	public function testSrcCode() {
 		assertTrue(this.unitTestStub.getTrue());
