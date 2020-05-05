@@ -2,17 +2,20 @@ version: 2
 jobs:
     interpret_test:
         docker:
-            - image: haxe:3.4.4
+            - image: haxe:4.0.5
         steps:
             - checkout
             - run:
-                name: Compile Tests
-                command: haxe interpret-tests.hxml
+                name: Interpret Tests
+                command: haxelib install uTest && haxelib list && haxe interpret-tests.hxml
     compile_tests:
         docker:
-            - image: haxe:3.4.4
+            - image: haxe:4.0.5
         steps:
             - checkout
+            - run:
+                name: Install Dependencies
+                command: haxelib install uTest
             - run:
                 name: Compile Tests
                 command: haxe compile-tests.hxml
@@ -27,7 +30,7 @@ jobs:
                     - build
     neko_test:
         docker:
-            - image: haxe:3.4.4
+            - image: haxe:4.0.5
         steps:
             - attach_workspace:
                 at: workspace

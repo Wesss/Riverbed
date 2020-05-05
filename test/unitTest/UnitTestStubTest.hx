@@ -1,19 +1,20 @@
 package unitTest;
 
 import unitTest.UnitTestStub;
+import utest.*;
 
-class UnitTestStubTest extends haxe.unit.TestCase {
+class UnitTestStubTest extends utest.Test {
 	var unitTestStub:UnitTestStub;
 
-	override public function setup() {
+	public function setup() {
 		this.unitTestStub = new UnitTestStub();
 	}
 
 	public function testAssertTrue() {
-		assertTrue(true);
+		Assert.isTrue(true);
 	}
 
 	public function testSrcCode() {
-		assertTrue(this.unitTestStub.getTrue());
+		Assert.isTrue(this.unitTestStub.getTrue());
 	}
 }

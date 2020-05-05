@@ -1,6 +1,7 @@
 -cp src
 -cp test
 -main Runner
+--library utest
 --each
 
 -neko build/test/neko-test.n
