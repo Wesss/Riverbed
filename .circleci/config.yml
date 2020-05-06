@@ -1,4 +1,23 @@
 version: 2
+steps:
+    install_dependencies: &install_dependencies
+        name: Install Dependencies
+        command: haxelib install utest
+    package_workspace: &package_workspace
+        name: Package Workspace
+        command: |
+            mkdir workspace/
+            cp -r build/ workspace/build/
+    persist_workspace: &persist_workspace
+        root: workspace
+        paths:
+            - build
+    attach_workspace: &attach_workspace
+        at: workspace
+    extract_workspace: &extract_workspace
+        name: Extract Workspace
+        command: |
+            cp -r workspace/build/ build/
 jobs:
     interpret_test:
         docker:
@@ -6,38 +25,32 @@ jobs:
         steps:
             - checkout
             - run:
+                <<: *install_dependencies
+            - run:
                 name: Interpret Tests
-                command: haxelib install uTest && haxelib list && haxe interpret-tests.hxml
+                command: haxe interpret-tests.hxml
     compile_tests:
         docker:
             - image: haxe:4.0.5
         steps:
             - checkout
             - run:
-                name: Install Dependencies
-                command: haxelib install uTest
+                <<: *install_dependencies
             - run:
                 name: Compile Tests
                 command: haxe compile-tests.hxml
             - run:
-                name: Prepare Workspace
-                command: |
-                    mkdir workspace/
-                    cp -r build/ workspace/build/
+                <<: *package_workspace
             - persist_to_workspace:
-                root: workspace
-                paths:
-                    - build
+                <<: *persist_workspace
     neko_test:
         docker:
             - image: haxe:4.0.5
         steps:
             - attach_workspace:
-                at: workspace
+                <<: *attach_workspace
             - run:
-                name: Extract Workspace
-                command: |
-                    cp -r workspace/build/ build/
+                <<: *extract_workspace
             - run:
                 name: Run Neko Tests
                 command: |
@@ -47,24 +60,19 @@ jobs:
             - image: python:3.6.7
         steps:
             - attach_workspace:
-                at: workspace
+                <<: *attach_workspace
             - run:
-                name: Extract Workspace
-                command: |
-                    cp -r workspace/build/ build/
+                <<: *extract_workspace
             - run:
                 name: Run Neko Tests
                 command: |
                     python build/test/python-test.py
-# TODO refactor out similar parts of this yml with yaml anchors/aliases (https://circleci.com/blog/circleci-hacks-reuse-yaml-in-your-circleci-config-with-yaml/)
 workflows:
     version: 2
     test:
         jobs:
             - interpret_test
-            - compile_tests:
-                requires:
-                    - interpret_test
+            - compile_tests
             - neko_test:
                 requires:
                     - compile_tests
