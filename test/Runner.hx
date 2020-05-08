@@ -1,18 +1,9 @@
-import unitTest.UnitTestStubTest;
+import util.*;
 
 class Runner {
     static function main() {
         utest.UTest.run([
-            new UnitTestStubTest()
+            new ManualTest()
         ]);
-        // // add new TestCases here
-        // testRunner.add(new UnitTestStubTest());
-
-        // testRunner.run();
-        // var exitCode = 0;
-        // if (!testRunner.result.success) {
-        //     exitCode = 1;
-        // }
-        // Sys.exit(exitCode);
     }
 }
