@@ -1,15 +1,14 @@
 package component;
 
-class Component implements IComponent
+interface Component
 {
-    // todo wesd func that receives domain objs, emits domain objs of multiple types && hooks up to components
-    public function new (fn:(Dynamic) -> List<Dynamic>)
-    {
-
-    }
-
-    public function connectTo(component:IComponent) 
-    {
-
-    }
+    /**
+        Hooks up the given component to received all signals emitted by this component.
+    **/
+    public function connectTo(component:Component):Void;
+    
+    /**
+        Processes the given signal through this component.
+    **/
+    public function process(signal:Dynamic):Void;
 }

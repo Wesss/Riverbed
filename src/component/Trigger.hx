@@ -1,20 +1,14 @@
 package component;
 
-class Trigger implements ITrigger
+interface Trigger
 {
-    // todo wesd func that emits && hooks up to components
-    public function new (startFn:((Dynamic) -> Void) -> Void)
-    {
+    /**
+        Hooks up the given component to received all signals emitted by this trigger.
+    **/
+    public function connectTo(component:Component):Void;
 
-    }
-
-    public function connectTo(component:IComponent) 
-    {
-
-    }
-
-    public function start()
-    {
-        
-    }
+    /**
+        Starts this trigger.
+    **/
+    public function start():Void;
 }

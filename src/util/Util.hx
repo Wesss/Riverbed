@@ -1,16 +1,14 @@
 package util;
 
-import component.*;
-
 class Util
 {
-    public static function manualTrigger():ManualTrigger
+    public static function createManualTrigger():ManualTrigger
     {
-        return null;
+        return new ManualTrigger();
     }
 
-    public static function manualReader():ManualReader
+    public static function createManualReader():ManualReader
     {
-        return null;
+        return new ManualReader();
     }
 }

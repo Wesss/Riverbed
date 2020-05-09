@@ -52,7 +52,7 @@ jobs:
             - run:
                 <<: *extract_workspace
             - run:
-                name: Run Neko Tests
+                name: Run Tests
                 command: |
                     neko build/test/neko-test.n
     python_test:
@@ -64,7 +64,7 @@ jobs:
             - run:
                 <<: *extract_workspace
             - run:
-                name: Run Neko Tests
+                name: Run Tests
                 command: |
                     python build/test/python-test.py
 workflows:
@@ -75,7 +75,9 @@ workflows:
             - compile_tests
             - neko_test:
                 requires:
+                    - interpret_test
                     - compile_tests
             - python_test:
                 requires:
+                    - interpret_test
                     - compile_tests
