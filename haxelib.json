@@ -1,0 +1,11 @@
+{
+    "name": "riverbed",
+    "url": "https://github.com/Wesss/Riverbed",
+    "license": "Apache",
+    "tags": ["flow", "signal", "component"],
+    "description": "Flow Based Programming for Haxe.",
+    "version": "0.0.1",
+    "classPath": "src/",
+    "releasenote": "Implemented minimal Trigger and Component classes.",
+    "contributors": ["Wesss"]
+  }
