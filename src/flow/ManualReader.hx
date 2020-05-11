@@ -1,18 +1,19 @@
-package util;
+package flow;
 
 import component.*;
 
 /**
     A Component that stores all signals received for retrieval. Emits nothing.
 **/
-class ManualReader implements Component
+class ManualReader implements Receiver
 {
-    var component:Component;
+    var receiver:Receiver;
     var seen:Array<Dynamic> = new Array<Dynamic>(); 
 
     public function new()
     {
-        component = Flow.createComponent(store);
+        // todo wesd rework to use a receiver wrapper?
+        receiver = new ComponentWrapper(store);
     }
 
     private function store(signal:Dynamic):Array<Dynamic>
@@ -21,14 +22,14 @@ class ManualReader implements Component
         return Flow.EMPTY_RETURN;
     }
 
-    public function connectTo(component:Component)
+    public function receiveFrom(emitter:Emitter)
     {
-        this.component.connectTo(component);
+        receiver.receiveFrom(emitter);
     }
 
     public function process(signal:Dynamic):Void
     {
-        this.component.process(signal);
+        receiver.process(signal);
     }
 
     /**

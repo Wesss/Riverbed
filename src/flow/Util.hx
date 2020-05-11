@@ -1,10 +1,10 @@
-package util;
+package flow;
 
 class Util
 {
-    public static function createManualTrigger():ManualTrigger
+    public static function createManualEmitter():ManualEmitter
     {
-        return new ManualTrigger();
+        return new ManualEmitter();
     }
 
     public static function createManualReader():ManualReader

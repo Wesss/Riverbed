@@ -6,27 +6,26 @@ package component;
 class TriggerWrapper implements Trigger
 {
     var startFn:((Dynamic) -> Void) -> Void;
-    var connectedComponents:Array<Component> = new Array<Component>();
+    var emitter:Emitter;
 
     public function new (startFn:((Dynamic) -> Void) -> Void)
     {
         this.startFn = startFn;
+        this.emitter = new EmitterWrapper();
     }
 
-    public function connectTo(component:Component) 
+    public function to(receiver:Receiver) 
     {
-        connectedComponents.push(component);
+        emitter.to(receiver);
     }
 
     public function start()
     {
-        startFn(emitCallback);
+        startFn(emit);
     }
 
-    private function emitCallback(signal:Dynamic):Void
+    public function emit(signal:Dynamic):Void
     {
-        for (component in connectedComponents) {
-            component.process(signal);
-        }
+        emitter.emit(signal);
     }
 }

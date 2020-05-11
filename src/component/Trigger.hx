@@ -1,12 +1,7 @@
 package component;
 
-interface Trigger
+interface Trigger extends Emitter
 {
-    /**
-        Hooks up the given component to received all signals emitted by this trigger.
-    **/
-    public function connectTo(component:Component):Void;
-
     /**
         Starts this trigger.
     **/
