@@ -1,10 +1,6 @@
 package component;
 
-/**
-    A component is a black box process that can receive signals emitted by other components and triggers
-    and emit new signals.
-**/
-class ComponentWrapper implements Component implements Receiver
+class ComponentWrapper implements Component
 {
     var fn:(Dynamic) -> Array<Dynamic>;
     var emitter:Emitter;

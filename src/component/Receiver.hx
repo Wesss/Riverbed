@@ -1,5 +1,8 @@
 package component;
 
+/**
+    A Receiver is able to receiver signals from Emitters.
+**/
 interface Receiver
 {
     /**

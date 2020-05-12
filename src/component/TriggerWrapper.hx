@@ -1,8 +1,5 @@
 package component;
 
-/**
-    A Trigger is a black box process that once started, emits new signals.
-**/
 class TriggerWrapper implements Trigger
 {
     var startFn:((Dynamic) -> Void) -> Void;

@@ -13,12 +13,12 @@ class ManualTest extends utest.Test {
 	var reader3:ManualReader;
 
 	public function setup() {
-		emitter = Util.createManualEmitter();
-		emitter2 = Util.createManualEmitter();
-		emitter3 = Util.createManualEmitter();
-		reader = Util.createManualReader();
-		reader2 = Util.createManualReader();
-		reader3 = Util.createManualReader();
+		emitter = Util.getManualEmitter();
+		emitter2 = Util.getManualEmitter();
+		emitter3 = Util.getManualEmitter();
+		reader = Util.getManualReader();
+		reader2 = Util.getManualReader();
+		reader3 = Util.getManualReader();
 	}
 
 	public function testOneSignal() {

@@ -14,14 +14,17 @@ class ManualEmitter implements Emitter
         emitter = new EmitterWrapper();
     }
 
-	/**
-		Triggers all connected components with the given signal.
-	**/
+    /**
+        Emits the given signal to all connected receivers.
+    **/
     public function emit(signal:Dynamic)
     {
         emitter.emit(signal);
     }
 
+    /**
+        Hooks up the given component to receive all signals emitted.
+    **/
     public function to(receiver:Receiver)
     {
         emitter.to(receiver);

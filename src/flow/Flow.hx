@@ -6,13 +6,30 @@ class Flow
 {
     public static var EMPTY_RETURN:Array<Dynamic> = new Array<Dynamic>();
 
-    public static function createTrigger(startFn:((Dynamic) -> Void) -> Void):Trigger
+    /**
+        Returns a Trigger that runs the given callback when started.
+        The callback is given an emit callback to emit signals.
+    **/
+    public static function getTrigger(startFn:((Dynamic) -> Void) -> Void):Trigger
     {
         return new TriggerWrapper(startFn);
     }
 
-    public static function createComponent(fn:(Dynamic) -> Array<Dynamic>):Component
+    /**
+        Returns a Component that runs the given callback when signals are received,
+        and then emits out signals returned from the callback.
+    **/
+    public static function getComponent(fn:(Dynamic) -> Array<Dynamic>):Component
     {
         return new ComponentWrapper(fn);
+    }
+
+    /**
+        Returns a Consumer that runs the given callback when signals are received,
+        and then emits out signals returned from the callback.
+    **/
+    public static function getConsumer(fn:(Dynamic) -> Void):Consumer
+    {
+        return new ConsumerWrapper(fn);
     }
 }

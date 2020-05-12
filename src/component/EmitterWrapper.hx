@@ -1,8 +1,5 @@
 package component;
 
-/**
-    A Trigger is a black box process that once started, emits new signals.
-**/
 class EmitterWrapper implements Emitter
 {
     var connectedTo:Array<Receiver> = new Array<Receiver>();

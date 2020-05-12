@@ -5,31 +5,35 @@ import component.*;
 /**
     A Component that stores all signals received for retrieval. Emits nothing.
 **/
-class ManualReader implements Receiver
+class ManualReader implements Consumer
 {
-    var receiver:Receiver;
+    var consumer:Consumer;
     var seen:Array<Dynamic> = new Array<Dynamic>(); 
 
     public function new()
     {
-        // todo wesd rework to use a receiver wrapper?
-        receiver = new ComponentWrapper(store);
+        consumer = new ConsumerWrapper(store);
     }
 
-    private function store(signal:Dynamic):Array<Dynamic>
+    private function store(signal:Dynamic):Void
     {
         seen.push(signal);
-        return Flow.EMPTY_RETURN;
     }
 
+    /**
+        Hooks this up to receive signals from the given emitter.
+    **/
     public function receiveFrom(emitter:Emitter)
     {
-        receiver.receiveFrom(emitter);
+        consumer.receiveFrom(emitter);
     }
 
+    /**
+        Processes the given signal through this component.
+    **/
     public function process(signal:Dynamic):Void
     {
-        receiver.process(signal);
+        consumer.process(signal);
     }
 
     /**

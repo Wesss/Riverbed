@@ -1,5 +1,8 @@
 package component;
 
+/**
+    An Emitter is able to emit signals to Receivers.
+**/
 interface Emitter
 {
     /**
