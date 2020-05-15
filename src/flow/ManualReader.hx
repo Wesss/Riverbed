@@ -5,17 +5,17 @@ import component.*;
 /**
     A Component that stores all signals received for retrieval. Emits nothing.
 **/
-class ManualReader implements Consumer
+class ManualReader implements Consumer<Any>
 {
-    var consumer:Consumer;
-    var seen:Array<Dynamic> = new Array<Dynamic>(); 
+    var consumer:Consumer<Any>;
+    var seen:Array<Any> = new Array<Any>();
 
     public function new()
     {
-        consumer = new ConsumerWrapper(store);
+        consumer = new ConsumerWrapper<Any>(store);
     }
 
-    private function store(signal:Dynamic):Void
+    private function store(signal:Any):Void
     {
         seen.push(signal);
     }
@@ -31,7 +31,7 @@ class ManualReader implements Consumer
     /**
         Processes the given signal through this component.
     **/
-    public function process(signal:Dynamic):Void
+    public function process(signal:Any):Void
     {
         consumer.process(signal);
     }
@@ -39,10 +39,10 @@ class ManualReader implements Consumer
     /**
         Returns all signals received since the last read.
     **/
-    public function read():Array<Dynamic>
+    public function read():Array<Any>
     {
         var result = seen;
-        seen = new Array<Dynamic>();
+        seen = new Array<Any>();
         return result;
     }
 }

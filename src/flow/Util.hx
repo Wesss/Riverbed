@@ -14,8 +14,9 @@ class Util
         return new ManualReader();
     }
 
-    public static function getPrintConsumer():Consumer
+    public static function getPrintConsumer():Consumer<Any>
     {
-        return Flow.getConsumer((signal) -> trace(signal));
+        var fn:(Any) -> Void = (signal:Any) -> trace(signal);
+        return Flow.getConsumer(fn);
     }
 }

@@ -8,10 +8,10 @@ interface Emitter
     /**
         Hooks up the given component to receive all signals emitted.
     **/
-    public function to(receiver:Receiver):Void;
+    public function to(receiver:Receiver<Any>):Void;
 
     /**
         Emits the given signal to all connected receivers.
     **/
-    public function emit(signal:Dynamic):Void;
+    public function emit(signal:Any):Void;
 }

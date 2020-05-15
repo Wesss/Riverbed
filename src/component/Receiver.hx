@@ -3,7 +3,7 @@ package component;
 /**
     A Receiver is able to receiver signals from Emitters.
 **/
-interface Receiver
+interface Receiver<T>
 {
     /**
         Hooks this up to receive signals from the given emitter.
@@ -13,5 +13,5 @@ interface Receiver
     /**
         Processes the given signal through this component.
     **/
-    public function process(signal:Dynamic):Void;
+    public function process(signal:T):Void;
 }

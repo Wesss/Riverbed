@@ -11,7 +11,7 @@ class TriggerWrapper implements Trigger
         this.emitter = new EmitterWrapper();
     }
 
-    public function to(receiver:Receiver) 
+    public function to(receiver:Receiver<Any>)
     {
         emitter.to(receiver);
     }

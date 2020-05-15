@@ -17,7 +17,7 @@ class ManualEmitter implements Emitter
     /**
         Emits the given signal to all connected receivers.
     **/
-    public function emit(signal:Dynamic)
+    public function emit(signal:Any)
     {
         emitter.emit(signal);
     }
@@ -25,7 +25,7 @@ class ManualEmitter implements Emitter
     /**
         Hooks up the given component to receive all signals emitted.
     **/
-    public function to(receiver:Receiver)
+    public function to(receiver:Receiver<Any>)
     {
         emitter.to(receiver);
     }

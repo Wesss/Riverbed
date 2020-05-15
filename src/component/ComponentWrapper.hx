@@ -1,31 +1,31 @@
 package component;
 
-class ComponentWrapper implements Component
+class ComponentWrapper<T> implements Component<T>
 {
-    var fn:(Dynamic) -> Array<Dynamic>;
+    var fn:(T) -> Array<Any>;
     var emitter:Emitter;
 
-    public function new (fn:(Dynamic) -> Array<Dynamic>)
+    public function new (fn:(T) -> Array<Any>)
     {
         this.fn = fn;
     }
 
-    public function to(receiver:Receiver) 
+    public function to(receiver:Receiver<Any>)
     {
         this.emitter.to(receiver);
     }
 
     public function receiveFrom(emitter:Emitter)
     {
-        emitter.to(this);
+        emitter.to(cast this);
     }
 
-    public function emit(signal:Dynamic):Void
+    public function emit(signal:Any):Void
     {
         emitter.emit(signal);
     }
 
-    public function process(signal:Dynamic)
+    public function process(signal:T)
     {
         var results = fn(signal);
         for (res in results) {
