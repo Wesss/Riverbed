@@ -1,26 +1,38 @@
 package component;
 
-class ComponentWrapper<T> implements Component<T>
-{
-    var fn:(T) -> Array<Any>;
-    var emitter:Emitter;
+import flow.*;
 
-    public function new (fn:(T) -> Array<Any>)
+class ComponentWrapper<T, V> implements Component<T, V>
+{
+    var fn:(T) -> Array<V>;
+    var emitter:Emitter<V>;
+
+    public function new (fn:(T) -> Array<V>)
     {
         this.fn = fn;
     }
 
-    public function to(receiver:Receiver<Any>)
+    public function to(receiver:Receiver<V>)
     {
         this.emitter.to(receiver);
     }
 
-    public function receiveFrom(emitter:Emitter)
+    public function toFilterTypes<U>(receiver:Receiver<U>)
     {
-        emitter.to(cast this);
+        this.emitter.toFilterTypes(receiver);
     }
 
-    public function emit(signal:Any):Void
+    public function receiveFrom(emitter:Emitter<T>)
+    {
+        emitter.to(this);
+    }
+
+    public function receiveFromFilterTypes<U>(emitter:Emitter<U>)
+    {
+        emitter.toFilterTypes(this);
+    }
+
+    public function emit(signal:V):Void
     {
         emitter.emit(signal);
     }

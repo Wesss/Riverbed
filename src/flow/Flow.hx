@@ -4,13 +4,11 @@ import component.*;
 
 class Flow
 {
-    public static var EMPTY_RETURN:Array<Any> = new Array<Any>();
-
     /**
         Returns a Trigger that runs the given callback when started.
         The callback is given an emit callback to emit signals.
     **/
-    public static function getTrigger(startFn:((Any) -> Void) -> Void):Trigger
+    public static function getTrigger<T>(startFn:((T) -> Void) -> Void):Trigger<T>
     {
         return new TriggerWrapper(startFn);
     }
@@ -19,7 +17,7 @@ class Flow
         Returns a Component that runs the given callback when signals are received,
         and then emits out signals returned from the callback.
     **/
-    public static function getComponent<T>(fn:(T) -> Array<Any>):Component<T>
+    public static function getComponent<T, V>(fn:(T) -> Array<V>):Component<T, V>
     {
         return new ComponentWrapper(fn);
     }

@@ -1,20 +1,36 @@
 package component;
 
-class EmitterWrapper implements Emitter
+import flow.*;
+
+class EmitterWrapper<T> implements Emitter<T>
 {
-    var connectedTo:Array<Receiver<Any>> = new Array<Receiver<Any>>();
+    var connectedTo:Array<Receiver<T>> = new Array<Receiver<T>>();
 
     public function new()
     {
 
     }
 
-    public function to<V>(receiver:Receiver<Any>)
+    public function to(receiver:Receiver<T>):Void
     {
-        connectedTo.push(cast receiver);
+        connectedTo.push(receiver);
     }
 
-    public function emit(signal:Any)
+    public function toFilterTypes<V>(receiver:Receiver<V>)
+    {
+        throw "not implemented";
+        // var filter: Component<T, V> = new ComponentWrapper((arg:T) -> {
+        //     if (Std.is(arg, V)) {
+        //         return [];
+        //     }
+        //     return [cast(arg, V)];
+        // });
+
+        // this.to(filter);
+        // filter.to(receiver);
+    }
+
+    public function emit(signal:T)
     {
         for (receiver in connectedTo) {
             receiver.process(signal);

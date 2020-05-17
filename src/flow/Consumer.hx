@@ -1,4 +1,4 @@
-package component;
+package flow;
 
 /**
     A Consumer is a black box process that can receive signals emitted by other components and triggers

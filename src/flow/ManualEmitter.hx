@@ -5,9 +5,9 @@ import component.*;
 /**
     A Trigger that isn't started, but rather triggers off of a manually invoked `emit` method
 **/
-class ManualEmitter implements Emitter
+class ManualEmitter<T> implements Emitter<T>
 {
-    var emitter:Emitter;
+    var emitter:Emitter<T>;
 
     public function new ()
     {
@@ -17,7 +17,7 @@ class ManualEmitter implements Emitter
     /**
         Emits the given signal to all connected receivers.
     **/
-    public function emit(signal:Any)
+    public function emit(signal:T)
     {
         emitter.emit(signal);
     }
@@ -25,8 +25,16 @@ class ManualEmitter implements Emitter
     /**
         Hooks up the given component to receive all signals emitted.
     **/
-    public function to(receiver:Receiver<Any>)
+    public function to(receiver:Receiver<T>)
     {
         emitter.to(receiver);
+    }
+
+    /**
+        Hooks up the given component to receive all signals emitted.
+    **/
+    public function toFilterTypes<V>(receiver:Receiver<V>)
+    {
+        emitter.toFilterTypes(receiver);
     }
 }

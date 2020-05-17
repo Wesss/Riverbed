@@ -1,5 +1,7 @@
 package component;
 
+import flow.*;
+
 class ConsumerWrapper<T> implements Consumer<T>
 {
     var fn:(T) -> Void;
@@ -9,9 +11,14 @@ class ConsumerWrapper<T> implements Consumer<T>
         this.fn = fn;
     }
 
-    public function receiveFrom(emitter:Emitter)
+    public function receiveFrom(emitter:Emitter<T>)
     {
-        emitter.to(cast this);
+        emitter.to(this);
+    }
+
+    public function receiveFromFilterTypes<V>(emitter:Emitter<V>)
+    {
+        emitter.toFilterTypes(this);
     }
 
     public function process(signal:T)

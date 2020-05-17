@@ -1,9 +1,9 @@
-package component;
+package flow;
 
 /**
     A Trigger is a black box process that once started, emits new signals.
 **/
-interface Trigger extends Emitter
+interface Trigger<T> extends Emitter<T>
 {
     /**
         Starts this trigger.

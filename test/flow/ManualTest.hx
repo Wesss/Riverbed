@@ -5,12 +5,12 @@ import utest.*;
 
 class ManualTest extends utest.Test {
 
-	var emitter:ManualEmitter;
-	var emitter2:ManualEmitter;
-	var emitter3:ManualEmitter;
-	var reader:ManualReader;
-	var reader2:ManualReader;
-	var reader3:ManualReader;
+	var emitter:ManualEmitter<String>;
+	var emitter2:ManualEmitter<String>;
+	var emitter3:ManualEmitter<String>;
+	var reader:ManualReader<String>;
+	var reader2:ManualReader<String>;
+	var reader3:ManualReader<String>;
 
 	public function setup() {
 		emitter = Util.getManualEmitter();

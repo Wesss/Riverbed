@@ -4,19 +4,18 @@ import component.*;
 
 class Util
 {
-    public static function getManualEmitter():ManualEmitter
+    public static function getManualEmitter<T>():ManualEmitter<T>
     {
-        return new ManualEmitter();
+        return new ManualEmitter<T>();
     }
 
-    public static function getManualReader():ManualReader
+    public static function getManualReader<T>():ManualReader<T>
     {
-        return new ManualReader();
+        return new ManualReader<T>();
     }
 
     public static function getPrintConsumer():Consumer<Any>
     {
-        var fn:(Any) -> Void = (signal:Any) -> trace(signal);
-        return Flow.getConsumer(fn);
+        return Flow.getConsumer((signal:Any) -> trace(signal));
     }
 }
