@@ -4,22 +4,31 @@ import flow.*;
 
 class ComponentWrapper<T, V> implements Component<T, V>
 {
-    var fn:(T) -> Array<V>;
-    var emitter:Emitter<V>;
+    var fn:(T,  Array<(V) -> Void>) -> Void;
+    var emitters:Array<Emitter<V>>;
+    var callbacks:Array<(V) -> Void>;
 
-    public function new (fn:(T) -> Array<V>)
+    public function new (fn:(T, Array<(V) -> Void>) -> Void, emitCallbackCnt:Int = 1)
     {
         this.fn = fn;
+        emitters = [];
+        callbacks = [];
+        for (i in 0...emitCallbackCnt) {
+            emitters.push(new EmitterWrapper());
+            callbacks.push((arg:V)-> {
+                emitters[i].emit(arg);
+            });
+        }
     }
 
-    public function to(receiver:Receiver<V>)
+    public function to(receiver:Receiver<V>, outStream:Int = 0)
     {
-        this.emitter.to(receiver);
+        this.emitters[outStream].to(receiver);
     }
 
-    public function toFilterTypes<U>(receiver:Receiver<U>)
+    public function toFilterTypes<U>(receiver:Receiver<U>, outStream:Int = 0)
     {
-        this.emitter.toFilterTypes(receiver);
+        this.emitters[outStream].toFilterTypes(receiver);
     }
 
     public function receiveFrom(emitter:Emitter<T>)
@@ -34,14 +43,11 @@ class ComponentWrapper<T, V> implements Component<T, V>
 
     public function emit(signal:V):Void
     {
-        emitter.emit(signal);
+        throw "Not implemented";
     }
 
     public function process(signal:T)
     {
-        var results = fn(signal);
-        for (res in results) {
-            emit(res);
-        }
+        fn(signal, callbacks);
     }
 }

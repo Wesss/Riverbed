@@ -3,8 +3,10 @@ import flow.*;
 class Runner {
     static function main() {
         utest.UTest.run([
-            new ManualTest(),
-            new TypedTest()
+            new StartEndTest(),
+            new TypedTest(),
+            new ConsumerTest(),
+            new ComponentTest()
         ]);
     }
 }
