@@ -1,13 +1,13 @@
 package flow;
 
+import flow.Component;
 import flow.Consumer;
-
 
 /**
     A unary type to represent the presense of a signal.
 **/
 class UnitSignal {
-    static var inst(default, null):UnitSignal = null;
+    public static var inst(default, null):UnitSignal = null;
     private function new () {}
 }
 
@@ -20,7 +20,7 @@ class Flow {
     }
 
     public static function getEnd<T>():End<T> {
-        return new StreamIn<T>();
+        return new StreamIn<T>(null);
     }
 
     public static function getConsumer1<T>(fn:(T)->Void):Consumer1<T> {
@@ -39,45 +39,35 @@ class Flow {
         return new Consumer<T, V, W, X>(fn1, fn2, fn3, fn4);
     }
 
-    // /**
-    //     Returns a Trigger that runs the given callback when started.
-    //     The callback is given an emit callback to emit signals.
-    // **/
-    // public static function getTrigger<T>(startFn:((T) -> Void) -> Void):Trigger<T>
-    // {
-    //     return new TriggerWrapper(startFn);
-    // }
+    public static function getComponent1to1<I1, O1>(
+        fn1:(I1, (O1)->Void)->Void
+    ):Component1to1<I1, O1> {
+        return getComponent2to1(fn1, null);
+    }
 
-    // /**
-    //     Returns a Component that runs the given fn when signals are received,
-    //     and then emits out signals returned from the callback.
-    // **/
-    // public static function getComponent<T, V>(fn:(T) -> Iterable<V>):Component<T, V>
-    // {
-    //     var fnWithCallback = (signal:T, emit:Array<(V) -> Void>) -> {
-    //         var results = fn(signal);
-    //         for (res in results) {
-    //             emit[0](res);
-    //         }
-    //     }
-    //     return getComponentUsingCallbacks(fnWithCallback);
-    // }
+    public static function getComponent2to1<I1, I2, O1>(
+        fn1:(I1, (O1)->Void)->Void,
+        fn2:(I2, (O1)->Void)->Void
+    ):Component2to1<I1, I2, O1> {
+        var newFn1 = (signal:I1, emit1:O1->Void, _:Any->Void) -> {
+            fn1(signal, emit1);
+        };
+        var newFn2 = (signal:I2, emit1:O1->Void, _:Any->Void) -> {
+            fn2(signal, emit1);
+        };
+        return getComponent2to2(newFn1, newFn2);
+    }
 
-    // /**
-    //     Returns a Component that runs the given fn when signals are received,
-    //     and then emits out signals called using the given emit callback.
-    // **/
-    // public static function getComponentUsingCallbacks<T, V>(fn:(T, Array<(V) -> Void>) -> Void, outStreamCount:Int = 1):Component<T, V>
-    // {
-    //     return new ComponentWrapper(fn, outStreamCount);
-    // }
+    public static function getComponent1to2<I1, O1, O2>(
+        fn1:(I1, (O1)->Void, (O2)->Void)->Void
+    ):Component1to2<I1, O1, O2> {
+        return getComponent2to2(fn1, null);
+    }
 
-    // /**
-    //     Returns a Consumer that runs the given callback when signals are received,
-    //     and then emits out signals returned from the callback.
-    // **/
-    // public static function getConsumer<T>(fn:(T) -> Void):Consumer<T>
-    // {
-    //     return new ConsumerWrapper<T>(fn);
-    // }
+    public static function getComponent2to2<I1, I2, O1, O2>(
+        fn1:(I1, (O1)->Void, (O2)->Void)->Void,
+        fn2:(I2, (O1)->Void, (O2)->Void)->Void
+    ):Component2to2<I1, I2, O1, O2> {
+        return new Component<I1, I2, O1, O2>(fn1, fn2);
+    }
 }

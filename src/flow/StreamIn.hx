@@ -9,7 +9,7 @@ class StreamIn<T>
     var accumulating:Bool = false;
     var collectedSignals:Array<T> = new Array<T>();
 
-    public function new (fn:(T)->Void = null) {
+    public function new (fn:(T)->Void) {
         this.fn = fn;
         if (fn == null) {
             this.fn = (arg:T) -> {};
@@ -44,7 +44,9 @@ class StreamIn<T>
     /**
         Returns all signals accumulated while 'accumulate' was set to true.
     **/
-    public function getUnsentSignals():Iterable<T> {
-        return collectedSignals;
+    public function getSignals():Iterable<T> {
+        var res = collectedSignals;
+        collectedSignals = [];
+        return res;
     }
 }

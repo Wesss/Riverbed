@@ -28,7 +28,7 @@ class StartEndTest extends utest.Test {
 		start.to(end);
 		start.emit("TEST");
 
-		Assert.same(["TEST"], end.getUnsentSignals());
+		Assert.same(["TEST"], end.getSignals());
 	}
 
 	public function testManySignals() {
@@ -36,7 +36,7 @@ class StartEndTest extends utest.Test {
 		start.emit("TEST");
 		start.emit("TEST2");
 		start.emit("TEST3");
-		Assert.same(["TEST", "TEST2", "TEST3"], end.getUnsentSignals());
+		Assert.same(["TEST", "TEST2", "TEST3"], end.getSignals());
 	}
 
 	public function testManyToOne() {
@@ -46,7 +46,7 @@ class StartEndTest extends utest.Test {
 		start2.emit("TEST");
 		start3.emit("TEST2");
 		start.emit("TEST3");
-		Assert.same(["TEST", "TEST2", "TEST3"], end.getUnsentSignals());
+		Assert.same(["TEST", "TEST2", "TEST3"], end.getSignals());
 	}
 
 	public function testOneToMany() {
@@ -54,24 +54,24 @@ class StartEndTest extends utest.Test {
 		start.to(end2);
 		start.to(end3);
 		start.emit("TEST");
-		Assert.same(["TEST"], end.getUnsentSignals());
-		Assert.same(["TEST"], end2.getUnsentSignals());
-		Assert.same(["TEST"], end3.getUnsentSignals());
+		Assert.same(["TEST"], end.getSignals());
+		Assert.same(["TEST"], end2.getSignals());
+		Assert.same(["TEST"], end3.getSignals());
 	}
 
 	public function testReadGivesLatestSignals() {
 		start.to(end);
 		start.emit("TEST");
 		start.emit("TEST2");
-		Assert.same(["TEST", "TEST2"], end.getUnsentSignals());
+		Assert.same(["TEST", "TEST2"], end.getSignals());
 		start.emit("TEST3");
 		start.emit("TEST4");
-		Assert.same(["TEST", "TEST2", "TEST3", "TEST4"], end.getUnsentSignals());
+		Assert.same(["TEST3", "TEST4"], end.getSignals());
 	}
 
 	public function testReadFrom() {
 		end.readFrom(start);
 		start.emit("TEST");
-		Assert.same(["TEST"], end.getUnsentSignals());
+		Assert.same(["TEST"], end.getSignals());
 	}
 }
