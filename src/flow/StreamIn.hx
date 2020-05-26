@@ -19,8 +19,8 @@ class StreamIn<T>
     /**
         
     **/
-    public function readFrom(streamOut:StreamOut<T>) {
-        streamOut.to(this);
+    public function readFrom<V:T>(streamOut:StreamOut<V>) {
+        streamOut.to(cast this);
     }
 
     /**
