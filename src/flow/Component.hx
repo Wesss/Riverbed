@@ -1,5 +1,7 @@
 package flow;
 
+import flow.Flow;
+
 // expand out by inputs and outputs
 typedef Consumer1<I1> = {
     var in1(default, null): StreamIn<I1>;
@@ -58,28 +60,87 @@ class Component<I1, I2, I3, I4, O1, O2, O3, O4>
     public var out3(default, null):StreamOut<O3>;
     public var out4(default, null):StreamOut<O4>;
 
-    public function new(
+    private function new(
+        in1, in2, in3, in4,
+        out1, out2, out3, out4
+    ) {
+        this.in1 = in1;
+        this.in2 = in2;
+        this.in3 = in3;
+        this.in4 = in4;
+        this.out1 = out1;
+        this.out2 = out2;
+        this.out3 = out3;
+        this.out4 = out4;
+    }
+
+    public static function fromStartEnd<I1, I2, I3, I4, O1, O2, O3, O4>(
+        start1:Start<I1>, start2:Start<I2>, start3:Start<I3>, start4:Start<I4>,
+        end1:End<O1>, end2:End<O2>, end3:End<O3>, end4:End<O4>
+    ):Component<I1, I2, I3, I4, O1, O2, O3, O4> {
+        var in1 = new StreamIn(signal -> {
+            start1.emit(signal);
+        });
+        var in2 = new StreamIn(signal -> {
+            start2.emit(signal);
+        });
+        var in3 = new StreamIn(signal -> {
+            start3.emit(signal);
+        });
+        var in4 = new StreamIn(signal -> {
+            start4.emit(signal);
+        });
+        var out1 = new StreamOut();
+        if (end1 != null) {
+            end1.onProcess(signal -> {
+                out1.emit(signal);
+            });
+        }
+        var out2 = new StreamOut();
+        if (end2 != null) {
+            end2.onProcess(signal -> {
+                out2.emit(signal);
+            });
+        }
+        var out3 = new StreamOut();
+        if (end3 != null) {
+            end3.onProcess(signal -> {
+                out3.emit(signal);
+            });
+        }
+        var out4 = new StreamOut();
+        if (end4 != null) {
+            end4.onProcess(signal -> {
+                out4.emit(signal);
+            });
+        }
+
+        return new Component(in1, in2, in3, in4, out1, out2, out3, out4);
+    }
+
+    public static function fromFns<I1, I2, I3, I4, O1, O2, O3, O4>(
         fn1:(I1, (O1)->Void, (O2)->Void, (O3)->Void, (O4)->Void)->Void,
         fn2:(I2, (O1)->Void, (O2)->Void, (O3)->Void, (O4)->Void)->Void,
         fn3:(I3, (O1)->Void, (O2)->Void, (O3)->Void, (O4)->Void)->Void,
         fn4:(I4, (O1)->Void, (O2)->Void, (O3)->Void, (O4)->Void)->Void
     ) {
-        out1 = new StreamOut();
-        out2 = new StreamOut();
-        out3 = new StreamOut();
-        out4 = new StreamOut();
+        var out1 = new StreamOut();
+        var out2 = new StreamOut();
+        var out3 = new StreamOut();
+        var out4 = new StreamOut();
         // feed into each input the emit method of each output.
-        in1 = new StreamIn((signal:I1) -> {
+        var in1 = new StreamIn((signal:I1) -> {
             fn1(signal, out1.emit, out2.emit, out3.emit, out4.emit);
         });
-        in2 = new StreamIn((signal:I2) -> {
+        var in2 = new StreamIn((signal:I2) -> {
             fn2(signal, out1.emit, out2.emit, out3.emit, out4.emit);
         });
-        in3 = new StreamIn((signal:I3) -> {
+        var in3 = new StreamIn((signal:I3) -> {
             fn3(signal, out1.emit, out2.emit, out3.emit, out4.emit);
         });
-        in4 = new StreamIn((signal:I4) -> {
+        var in4 = new StreamIn((signal:I4) -> {
             fn4(signal, out1.emit, out2.emit, out3.emit, out4.emit);
         });
+        return new Component(in1, in2, in3, in4, out1, out2, out3, out4);
     }
 }

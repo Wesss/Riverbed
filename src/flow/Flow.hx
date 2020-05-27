@@ -172,6 +172,166 @@ class Flow {
         fn3:(I3, (O1)->Void, (O2)->Void, (O3)->Void, (O4)->Void)->Void,
         fn4:(I4, (O1)->Void, (O2)->Void, (O3)->Void, (O4)->Void)->Void
     ):Component4to4<I1, I2, I3, I4, O1, O2, O3, O4> {
-        return new Component<I1, I2, I3, I4, O1, O2, O3, O4>(fn1, fn2, fn3, fn4);
+        return Component.fromFns(fn1, fn2, fn3, fn4);
+    }
+
+    public static function compose1to1<I1, O1>(
+        start1,
+        end1
+    ):Component1to1<I1, O1> {
+        return compose1to2(
+            start1,
+            end1, null
+        );
+    }
+
+    public static function compose1to2<I1, O1, O2>(
+        start1,
+        end1, end2
+    ):Component1to2<I1, O1, O2> {
+        return compose1to3(
+            start1,
+            end1, end2, null
+        );
+    }
+
+    public static function compose1to3<I1, O1, O2, O3>(
+        start1,
+        end1, end2, end3
+    ):Component1to3<I1, O1, O2, O3> {
+        return compose1to4(
+            start1,
+            end1, end2, end3, null
+        );
+    }
+
+    public static function compose1to4<I1, O1, O2, O3, O4>(
+        start1,
+        end1, end2, end3, end4
+    ):Component1to4<I1, O1, O2, O3, O4> {
+        return compose2to4(
+            start1, null,
+            end1, end2, end3, end4
+        );
+    }
+
+    public static function compose2to1<I1, I2, O1>(
+        start1, start2,
+        end1
+    ):Component2to1<I1, I2, O1> {
+        return compose2to2(
+            start1, start2,
+            end1, null
+        );
+    }
+
+    public static function compose2to2<I1, I2, O1, O2>(
+        start1, start2,
+        end1, end2
+    ):Component2to2<I1, I2, O1, O2> {
+        return compose2to3(
+            start1, start2,
+            end1, end2, null
+        );
+    }
+
+    public static function compose2to3<I1, I2, O1, O2, O3>(
+        start1, start2,
+        end1, end2, end3
+    ):Component2to3<I1, I2, O1, O2, O3> {
+        return compose2to4(
+            start1, start2,
+            end1, end2, end3, null
+        );
+    }
+
+    public static function compose2to4<I1, I2, O1, O2, O3, O4>(
+        start1, start2,
+        end1, end2, end3, end4
+    ):Component2to4<I1, I2, O1, O2, O3, O4> {
+        return compose3to4(
+            start1, start2, null,
+            end1, end2, end3, end4
+        );
+    }
+
+    public static function compose3to1<I1, I2, I3, O1>(
+        start1, start2, start3,
+        end1
+    ):Component3to1<I1, I2, I3, O1> {
+        return compose3to2(
+            start1, start2, start3,
+            end1, null
+        );
+    }
+
+    public static function compose3to2<I1, I2, I3, O1, O2>(
+        start1, start2, start3,
+        end1, end2
+    ):Component3to2<I1, I2, I3, O1, O2> {
+        return compose3to3(
+            start1, start2, start3,
+            end1, end2, null
+        );
+    }
+
+    public static function compose3to3<I1, I2, I3, O1, O2, O3>(
+        start1, start2, start3,
+        end1, end2, end3
+    ):Component3to3<I1, I2, I3, O1, O2, O3> {
+        return compose3to4(
+            start1, start2, start3,
+            end1, end2, end3, null
+        );
+    }
+
+    public static function compose3to4<I1, I2, I3, O1, O2, O3, O4>(
+        start1, start2, start3,
+        end1, end2, end3, end4
+    ):Component3to4<I1, I2, I3, O1, O2, O3, O4> {
+        return compose4to4(
+            start1, start2, start3, null,
+            end1, end2, end3, end4
+        );
+    }
+
+    public static function compose4to1<I1, I2, I3, I4, O1>(
+        start1, start2, start3, start4,
+        end1
+    ):Component4to1<I1, I2, I3, I4, O1> {
+        return compose4to2(
+            start1, start2, start3, start4,
+            end1, null
+        );
+    }
+
+    public static function compose4to2<I1, I2, I3, I4, O1, O2>(
+        start1, start2, start3, start4,
+        end1, end2
+    ):Component4to2<I1, I2, I3, I4, O1, O2> {
+        return compose4to3(
+            start1, start2, start3, start4,
+            end1, end2, null
+        );
+    }
+
+    public static function compose4to3<I1, I2, I3, I4, O1, O2, O3>(
+        start1, start2, start3, start4,
+        end1, end2, end3
+    ):Component4to3<I1, I2, I3, I4, O1, O2, O3> {
+        return compose4to4(
+            start1, start2, start3, start4,
+            end1, end2, end3, null
+        );
+    }
+
+    public static function compose4to4<I1, I2, I3, I4, O1, O2, O3, O4>(
+        start1, start2, start3, start4,
+        end1, end2, end3, end4
+    ):Component4to4<I1, I2, I3, I4, O1, O2, O3, O4> {
+        return Component.fromStartEnd(
+            start1, start2, start3, start4,
+            end1, end2, end3, end4
+        );
     }
 }

@@ -6,7 +6,8 @@ class Runner {
             new StartEndTest(),
             new TypedTest(),
             new ConsumerTest(),
-            new ComponentTest()
+            new ComponentTest(),
+            new FlowUtilTest()
         ]);
     }
 }

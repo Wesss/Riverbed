@@ -162,4 +162,30 @@ class ComponentTest extends utest.Test {
 		Assert.same([0, 3], end3.getSignals());
 		Assert.same([["3"], ["Test2", "Test3"]], end4.getSignals());
 	}
+
+	public function testComposeComponent() {
+		var innerStart = Flow.getStart();
+		var toLower = Flow.getComponent1to1(
+			(arg:String, emit1:(String -> Void)) -> {
+				emit1(arg.toLowerCase());
+			}
+		);
+		var threeChars = Flow.getComponent1to1(
+			(arg:String, emit1:(String -> Void)) -> {
+				emit1(arg.substr(0, 3));
+			}
+		);
+		var innerEnd = Flow.getEnd();
+		
+		innerStart.to(toLower.in1);
+		toLower.out1.to(threeChars.in1);
+		threeChars.out1.to(innerEnd);
+		var lowerThreeChars = Flow.compose1to1(innerStart, innerEnd);
+
+		start.to(lowerThreeChars.in1);
+		lowerThreeChars.out1.to(end);
+		start.emit("TESTER");
+		start.emit("AsDfG");
+		Assert.same(["tes", "asd"], end.getSignals());
+	}
 }

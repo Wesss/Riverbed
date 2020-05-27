@@ -2,6 +2,7 @@ package flow;
 
 /**
     todo docs
+    todo wesd hide 'protected' functions with start/end typedefs
 **/
 class StreamIn<T>
 {
@@ -10,10 +11,7 @@ class StreamIn<T>
     var collectedSignals:Array<T> = new Array<T>();
 
     public function new (fn:(T)->Void) {
-        this.fn = fn;
-        if (fn == null) {
-            this.fn = (arg:T) -> {};
-        }
+        onProcess(fn);
     }
 
     /**
@@ -31,6 +29,16 @@ class StreamIn<T>
             collectedSignals.push(signal);
         } else {
             fn(signal);
+        }
+    }
+
+    /**
+        Processes the given signal through connected components
+    **/
+    public function onProcess(fn:(T)->Void):Void {
+        this.fn = fn;
+        if (fn == null) {
+            this.fn = (arg:T) -> {};
         }
     }
 
