@@ -26,4 +26,11 @@ class StreamOut<T>
             stream.process(signal);
         }
     }
+
+    /**
+        Debug prints outputed signals before emitting them outward.
+    **/
+    public function debug(key:String = null, fn:T->String = null) {
+        connectedTo.insert(0, FlowUtil.tracer(key, fn).in1);
+    }
 }

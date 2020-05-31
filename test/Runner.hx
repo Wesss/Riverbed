@@ -7,7 +7,8 @@ class Runner {
             new TypedTest(),
             new ConsumerTest(),
             new ComponentTest(),
-            new FlowUtilTest()
+            new FlowUtilBasicTest(),
+            new SingleFileTest()
         ]);
     }
 }
