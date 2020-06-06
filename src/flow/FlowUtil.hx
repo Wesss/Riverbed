@@ -55,6 +55,23 @@ class FlowUtil
     }
 
     /**
+        Given a function of T -> Bool, returns a component that emits given
+        signals on out1 if fn(in1) is true, and emits on out2 otherwise
+    **/
+    public static function filter<T>(fn:T->Bool):Component1to2<T, T, T>
+    {
+        return Flow.getComponent1to2(
+            (signal:T, outTrue:(T)->Void, outFalse:(T)->Void) -> {
+                if (fn(signal)) {
+                    outTrue(signal);
+                } else {
+                    outFalse(signal);
+                }
+            }
+        );
+    }
+
+    /**
         Traces signals received.
     **/
     public static function tracer<T>(tag = "", fn:T->String = null):Consumer1<T>
@@ -111,6 +128,17 @@ class FlowUtil
     public static function join2<I1, I2, I3, I4>()
     :Component2to1<I1, I2, {in1:I1, in2:I2}> {
         return cast join(2);
+    }
+
+    /**
+        Outputs a composite signal once every input is called once.
+        Throws an exception if an input is called more than once before all are called once.
+        todo wesd async whatever order support? possible by refactoring out state to be passed in
+        into functions, option to have a state per signal "stack".
+    **/
+    public static function join3<I1, I2, I3>()
+    :Component3to1<I1, I2, I3, {in1:I1, in2:I2, in3:I3}> {
+        return cast join(3);
     }
 
     /**
@@ -187,29 +215,31 @@ class FlowUtil
         var isWaiting = false;
         var sawEnd = false;
         var queue:Array<T> = [];
-        function enQueue(signal:T, process:T->Void, end:UnitSignal->Void) {
+        function enQueue(signal:T, go:T->Void, end:UnitSignal->Void) {
             queue.push(signal);
             if (!isWaiting && queue.length > 0) {
                 var nextSig = queue.shift();
                 isWaiting = true;
-                process(nextSig);
+                go(nextSig);
             }
         }
-        function markEnd(end:UnitSignal, process:T->Void, end:UnitSignal->Void) {
+        function markEnd(end:UnitSignal, go:T->Void, end:UnitSignal->Void) {
             sawEnd = true;
             if (!isWaiting && queue.length == 0) {
+                sawEnd = false;
                 end(UnitSignal.inst);
             }
         }
-        function next(next:UnitSignal, process:T->Void, end:UnitSignal->Void) {
+        function next(next:UnitSignal, go:T->Void, end:UnitSignal->Void) {
             isWaiting = false;
             if (sawEnd && queue.length == 0) {
+                sawEnd = false;
                 end(UnitSignal.inst);
             }
             if (!isWaiting && queue.length > 0) {
                 var nextSig = queue.shift();
                 isWaiting = true;
-                process(nextSig);
+                go(nextSig);
             }
         }
 

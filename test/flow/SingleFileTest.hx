@@ -115,4 +115,26 @@ class SingleFileTest extends utest.Test {
 		Assert.same([], outSig.getSignals());
 		Assert.same([unit], outEnd.getSignals());
 	}
+
+	public function testResets() {
+		inSig.emit("test1");
+		Assert.same(["test1"], outSig.getSignals());
+		Assert.same([], outEnd.getSignals());
+		inNext.emit(unit);
+		Assert.same([], outSig.getSignals());
+		Assert.same([], outEnd.getSignals());
+		inEnd.emit(unit);
+		Assert.same([], outSig.getSignals());
+		Assert.same([unit], outEnd.getSignals());
+
+		inSig.emit("test2");
+		Assert.same(["test2"], outSig.getSignals());
+		Assert.same([], outEnd.getSignals());
+		inNext.emit(unit);
+		Assert.same([], outSig.getSignals());
+		Assert.same([], outEnd.getSignals());
+		inEnd.emit(unit);
+		Assert.same([], outSig.getSignals());
+		Assert.same([unit], outEnd.getSignals());
+	}
 }
